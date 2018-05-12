@@ -1,5 +1,5 @@
 # iFAMS
-iFAMS, or interactive Fourier Analysis for mass spectra, is the Prell lab's home built deconvolution algorithm for heterogenous mass populations
+iFAMS, or interactive Fourier Analysis for Mass Spectrometry, is the Prell lab's home built deconvolution algorithm for heterogenous mass populations
 
 I am currently in the process of uploading the program to github.  Check back in the next upcoming weeks for updates! I expect to have a fully fuctioning GUI, as well as source code that can be run without the GUI if you'd prefer and familiar with python (I find it to be much faster this way)
 
