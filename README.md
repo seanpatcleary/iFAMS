@@ -19,7 +19,7 @@ For the Fourier Transform one, all you need to do is run the script from a comma
 
 "python    iFAMS_Fourier_Transform.py   test.txt" 
 
-would be the command to Fourier Transform that test file I sent you.  It will automatically export the Fourier Spectra as a CSV file. I only have setup to read txt files for this, but you could update it to do more if you would like
+would be the command to Fourier Transform that test file I've attached.  It will automatically export the Fourier Spectrum as a CSV file. At the moment, I only have it setup to run .txt files
 
 For the inverse Fourier Transform script, you'll need to input 3 arguments.  The same file as the Fourier one, the sub-unit mass, and the charge states as a list, in that order. So for the test file, this would be,
 
