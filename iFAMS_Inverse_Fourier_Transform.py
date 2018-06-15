@@ -8,19 +8,24 @@ Created on Mon Oct  2 15:16:02 2017
 import numpy as np
 import sys
 import ast
+import argparse
 from scipy import interpolate as interpolate
 import os
 
 
 chargestatesr=[]
 ###### system arguments ################
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--input", required=True, help="name of the file")
+ap.add_argument("-sm", "--subunit_mass", required=True, help="The mass of the subunit")
+ap.add_argument("-cs", "--charge_states", required=True, help="the charge states")
+args = vars(ap.parse_args())
 
-submass= float (sys.argv[2]) #the mass of the sub-unit
-chargestatesr= ast.literal_eval( sys.argv[3] ) #the charge states
-
+submass= float(args["subunit_mass"])
+chargestatesr= ast.literal_eval( args["charge_states"]) #the charge states
+file_name = args["input"]
 ###### system arguments ################
 
-file_name = sys.argv[1]
 f = open(file_name,'r')
 x,y=np.loadtxt (f,
        unpack = True,
