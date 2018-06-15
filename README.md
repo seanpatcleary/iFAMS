@@ -30,13 +30,20 @@ To run this script, open a command prompt, and make sure that the data that is b
 This would be the command to Fourier Transform that test file included on my github page.  Important to note that the data needs to be a .txt file, and the m/z values need to be in the first column (abundance in the 2nd).  It will automatically export the Fourier Spectra as a CSV file.
 
 
-For the inverse Fourier Transform script, you'll need to input 3 arguments.  The same file as the Fourier one, the sub-unit mass, and the charge states as a list, in that order. So for the test file, this would be,
+2.	For the inverse Fourier Transform script, you'll need 3 inputs
+
+-i (input) This is required, which is the name of the data file that you wish to do the full analysis on.  To be clear, this the file that hasn’t been Fourier transformed.  This is NOT the Fourier transformed one.
+
+-sm (subunit mass) This is required, and it is the sub-unit mass.  
+
+-cs (charge states) This is required, and it is the charge states you wish to use.  You’ll need to input with brackets around the full list, and use commas to separate the different charge states.  
+
+ As an example, if you wanted to do the full analysis on the test file using a subunit mass of 678 and charge states 12-15+, you would type:
 
  "python     iFAMS_Inverse_Fourier_Transform.py     test.txt     678     [12,13,14,15]"
 
- It will automatically export the inverse Fourier transforms as CSV files.
 
-5. For the statistical calculator script, you will need 4 arguments.  The name of the IFFT file, the charge state, the base mass, and the sub-unit mass, in that order.  All of these besides the name of the file are floats.  An example of this would be:
+3. For the statistical calculator script, you will need 4 arguments.  The name of the IFFT file, the charge state, the base mass, and the sub-unit mass, in that order.  All of these besides the name of the file are floats.  An example of this would be:
 
 "python      iFAMS_statistical_calculator testIFFT12.csv      12      49320      678" 
 
