@@ -15,11 +15,20 @@ These three scripts will do everything EXCEPT calculate the charge states and su
 
 I've attached three different scripts, 1. A script that will Fourier Transform a mass spectrum 2. One that will Inverse Fourier transform the FT data to get the individual charge state distributions, and 3. One that will calculate the statistics on the individual charge state distributions.
 
-For the Fourier Transform one, all you need to do is run the script from a command prompt while using the file that contains the mass spec data as an argument.  So, for example, 
+1.	For the Fourier Transform script, there are three inputs.  
 
-"python    iFAMS_Fourier_Transform.py   test.txt" 
+-i (input): This is required, which is the name of the data file that you wish to Fourier Transform
 
-would be the command to Fourier Transform that test file I've attached.  It will automatically export the Fourier Spectrum as a CSV file. At the moment, I only have it setup to run .txt files
+-d (domain, optional, default = “abs”) This is optional in case you want the real Fourier spectrum instead of the absolute (absolute is the default, so if this is what you want, you won’t have to input this). Type “real” for real data.
+
+-p (plot, optional, default = “no”) This is optional if you want the data plotted.  The default is no, so you don’t need to type this in if you want it plotted elsewhere.  It plots in MatPlotlib.
+
+To run this script, open a command prompt, and make sure that the data that is being FT’d is in the same directory as the script.  Change to the directory where the script/file is stored, and type the command, 
+
+"python    iFAMS_Fourier_Transform.py   -i test.txt" 
+
+This would be the command to Fourier Transform that test file included on my github page.  Important to note that the data needs to be a .txt file, and the m/z values need to be in the first column (abundance in the 2nd).  It will automatically export the Fourier Spectra as a CSV file.
+
 
 For the inverse Fourier Transform script, you'll need to input 3 arguments.  The same file as the Fourier one, the sub-unit mass, and the charge states as a list, in that order. So for the test file, this would be,
 
