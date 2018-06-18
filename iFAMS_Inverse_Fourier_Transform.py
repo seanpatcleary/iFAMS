@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct  2 15:16:02 2017
-
-@author: Prell Lab
-"""
-
 import numpy as np
 import sys
 import ast
 import argparse
 from scipy import interpolate as interpolate
+import matplotlib.pyplot as plt
 import os
 
 
@@ -19,12 +13,16 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", required=True, help="name of the file")
 ap.add_argument("-sm", "--subunit_mass", required=True, help="The mass of the subunit")
 ap.add_argument("-cs", "--charge_states", required=True, help="the charge states")
+ap.add_argument("-p", "--plot", default = "no", help="would you like the data plotted?")
+ap.add_argument("-d", "--domain", default = "abs", help="would you like real or absolute values. Default is Absolute,"
+                                                        "type real for real values")
 args = vars(ap.parse_args())
 
 submass= float(args["subunit_mass"])
-chargestatesr= ast.literal_eval( args["charge_states"]) #the charge states
+chargestatesr= ast.literal_eval(args["charge_states"]) #the charge states
 file_name = args["input"]
 ###### system arguments ################
+
 
 f = open(file_name,'r')
 x,y=np.loadtxt (f,
@@ -49,53 +47,81 @@ np.append(yflip,paddedynew)
 yfull = np.append(yflip,paddedynew)
 maxfreq = np.size(yfull)/expandedspan/2
 ftx = np.linspace(0, maxfreq, np.size(yfull), endpoint=True)
-FT = np.fft.fft(yfull)      
-ABFT=np.absolute(FT)
+FT = np.fft.fft(yfull)
+if args["domain"] == "real":
+    ABFT=np.real(FT)
+if args["domain"] == "abs":
+    ABFT=np.absolute(FT)
 ftspacing = maxfreq/(np.size(yfull)-1)
-chargestateints = [int(chargestatesr[i]) for i in range(0,len(chargestatesr))] 
+chargestateints = [int(chargestatesr[i]) for i in range(0,len(chargestatesr))]
 
-omegafinal = expandedspan/submass*2
-msintegral = sum(i[0]*i[1] for i in zip(xnew,ynew))
-ABIFTintegral = 0
-sumchar  = 0
-
-for i in chargestatesr:
-    sumchar += i
-
-
+omegafinal = expandedspan/ submass * 2
 ABIFT = []
-numchar=len(chargestatesr)
-
-
-
-for i in range(0,numchar):  
-    freqmax = (chargestatesr[i]+1/2)*omegafinal
-    freqmin = (chargestatesr[i]-1/2)*omegafinal
-    condition = np.logical_and((ftx/ftspacing) > freqmin, (ftx/ftspacing) < freqmax)
-    csdata = np.extract(condition,FT) #extracts the FFT data from the FFT spectrum that are within 1/2 the peak spacing of each maximum
+ABIFTmax = []
+ABIFTmaxfinal = 0
+ABIFTintegral = 0
+msintegral = sum(y)
+for i in range(0, len(chargestatesr)):
+    freqmax = (chargestatesr[i] + 1 / 2) * omegafinal
+    freqmin = (chargestatesr[i] - 1 / 2) * omegafinal
+    condition = np.logical_and((ftx/ ftspacing) > freqmin, (ftx / ftspacing) < freqmax)
+    csdata = np.extract(condition, FT)  # extracts the FFT data from the FFT spectrum that are within 1/2
+    # the peak spacing of each maximum
     extlen = np.size(csdata)
     leftzeroes = np.ceil(freqmin)
-    rightzeroes = np.size(FT)-extlen-leftzeroes
-    paddedcsdata=np.lib.pad(csdata,(np.int_(leftzeroes),np.int_(rightzeroes)),'constant',constant_values=(0,0))
+    rightzeroes = np.size(FT) - extlen - leftzeroes
+    paddedcsdata = np.lib.pad(csdata, (np.int_(leftzeroes), np.int_(rightzeroes)), 'constant', constant_values=(0, 0))
     IFT = np.fft.ifft(paddedcsdata)
-    ABIFT.append(abs(IFT[int((len(IFT))/2):]))
-#the contribution of each charge state to the mass spectrum here reflects the charge state itself (more closely-space peaks = more contribution) 
-    ABIFTintegral += (sum(j[0]*j[1] for j in zip(paddedxnew,ABIFT[i])))
+    if args["domain"] == "real":
+        ABIFT.append(np.real(IFT[int((len(IFT)) / 2):]))
+    if args["domain"] == "abs":
+        ABIFT.append(abs(IFT[int((len(IFT)) / 2):]))
 
-    
-             
-for i in range(0,numchar): #weight each charge-state-specific mass spectrum by its charge, with the total area = area of original mass spectrum
 
-    xnewfornoise = []
-    ABIFTplusnoise = []
-    ABIFTminusnoise = []
+############### Normalization of the IFFT Data ##########################
+if args["domain"] == "abs":
+    for i in range(0, len(chargestatesr)):
+        ABIFTmax.append(max(ABIFT[i]))
 
-    for j in range(0,len(ABIFT[i])):            
-        
-        ABIFT[i][j] = ABIFT[i][j]/ABIFTintegral*msintegral                
-        
+    ABIFTmaxfinal = max(ABIFTmax)
 
-   
+    for i in range(0, len(chargestatesr)):
+        for j in range(0, len(ABIFT[i])):
+            ABIFT[i][j] = ABIFT[i][j] / ABIFTmaxfinal
+
+    for i in range(0, len(chargestatesr)):
+        ABIFTintegral += sum(ABIFT[i])
+    for i in range(0, len(chargestatesr)):
+        for j in range(0, len(ABIFT[i])):
+            ABIFT[i][j] = ABIFT[i][j] / ABIFTintegral * msintegral
+
+if args["domain"] == "real":
+    for i in range(0, len(chargestatesr)):
+        ABIFTmax.append(max(ABIFT[i]))
+
+    ABIFTmaxfinal = max(ABIFTmax)
+
+    for i in range(0, len(chargestatesr)):
+        for j in range(0, len(ABIFT[i])):
+            ABIFT[i][j] = ABIFT[i][j] / ABIFTmaxfinal
+
+    for i in range(0, len(chargestatesr)):
+        for j in range(0, len(ABIFT[i])):
+            if ABIFT[i][j] >= 0:
+                ABIFTintegral += ABIFT[i][j]
+            else:
+                ABIFTintegral += 0
+    for i in range(0, len(chargestatesr)):
+        for j in range(0, len(ABIFT[i])):
+            ABIFT[i][j] = ABIFT[i][j] / ABIFTintegral * msintegral/2
+
+
+
+
+
+    ############### Normalization of the IFFT Data ##########################
+
+for i in range (0, len(chargestateints)):
     ifftfilename = 0
     iftstring = "IFFT"
     ifftfilename = namebase + iftstring + str(chargestateints[i]) + ".csv"
@@ -103,3 +129,12 @@ for i in range(0,numchar): #weight each charge-state-specific mass spectrum by i
     ifftforexport = np.transpose([xnew,ABIFT[i][0:int(len(xnew))]])
     np.savetxt(ifftfilename,ifftforexport,fmt='%10.6f', delimiter=',') #outputs each charge-state-specific spectrum to its own csv file
     print("file was exported")
+
+if args["plot"] == "yes":
+    plt.plot(x,y,color='k')
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k',
+              'b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k']
+    for i in range(0, len(chargestateints)):
+        plt.plot(xnew, ABIFT[i][0:int(len(xnew))],label=chargestateints[i],color = colors[i])
+    plt.legend(loc='upper right', title='Charge State')
+    plt.show()
