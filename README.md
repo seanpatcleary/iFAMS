@@ -30,13 +30,17 @@ To run this script, open a command prompt, and make sure that the data that is b
 This would be the command to Fourier Transform that test file included on my github page.  Important to note that the data needs to be a .txt file, and the m/z values need to be in the first column (abundance in the 2nd).  It will automatically export the Fourier Spectra as a CSV file.
 
 
-2.	For the inverse Fourier Transform script, you'll need 3 inputs
+2.	For the inverse Fourier Transform script, you'll need 3 inputs, but there are two optional values
 
 -i (input) This is required, which is the name of the data file that you wish to do the full analysis on.  To be clear, this the file that hasn’t been Fourier transformed.  This is NOT the Fourier transformed one.
 
 -sm (subunit mass) This is required, and it is the sub-unit mass.  
 
--cs (charge states) This is required, and it is the charge states you wish to use.  You’ll need to input with brackets around the full list, and use commas to separate the different charge states.  
+-cs (charge states) This is required, and it is the charge states you wish to use.  You’ll need to input with brackets around the full list, and use commas to separate the different charge states.
+
+-d (domain, optional, default = “abs”) This is optional in case you want the real Fourier spectrum instead of the absolute (absolute is the default, so if this is what you want, you won’t have to input this). Type “real” for real data.
+
+-p (plot, optional, default = “no”) This is optional if you want the data plotted.  The default is no, so you don’t need to type this in if you want it plotted elsewhere.  It plots in MatPlotlib.
 
  As an example, if you wanted to do the full analysis on the test file using a subunit mass of 678 and charge states 12-15+, you would type:
 
