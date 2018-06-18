@@ -44,7 +44,7 @@ This would be the command to Fourier Transform that test file included on my git
 
  As an example, if you wanted to do the full analysis on the test file using a subunit mass of 678 and charge states 12-15+, you would type:
 
- "python     iFAMS_Inverse_Fourier_Transform.py     test.txt     678     [12,13,14,15]"
+ "python      iFAMS_Inverse_Fourier_Transform.py    -i test.txt    -sm 678     -cs [12,13,14,15]"
 
 
 3. For the statistical calculator script, you will need 4 arguments.  
