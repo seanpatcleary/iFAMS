@@ -47,10 +47,20 @@ This would be the command to Fourier Transform that test file included on my git
  "python     iFAMS_Inverse_Fourier_Transform.py     test.txt     678     [12,13,14,15]"
 
 
-3. For the statistical calculator script, you will need 4 arguments.  The name of the IFFT file, the charge state, the base mass, and the sub-unit mass, in that order.  All of these besides the name of the file are floats.  An example of this would be:
+3. For the statistical calculator script, you will need 4 arguments.  
 
-"python      iFAMS_statistical_calculator testIFFT12.csv      12      49320      678" 
+-i (input)This is required, and it is the name of the IFFT file.  This should be a CSV file. Important to note, these should be the absolute value IFFT files, not the real ones
 
-this time, it will print the info in the command line.  If there isn't a base mass, just type zero for that.
+-cs (charge state) This is required, and it's the charge state of the IFFT file that you want to analyze
+
+-sm (subunit mass) This is required, and it's the subunit mass that you wished to use.
+
+-bm (base mass, optional) Often the subunit will be attached to some known mass, say lipids on a protein. The protein mass would be the basemass, so in other words, it's the section of the total mass that isn't changing.  The default is 0, so if there is no basemass, you don't have to enter anything here   
+
+An example of this would be:
+
+"python      iFAMS_statistical_calculator -i testIFFT12.csv      -cs 12      -bm 49320     -sm 678" 
+
+this time, it will print the info in the command line. This script is a simple script that calcualtes the variance over all of the points, and takes the square root of that variance to produce the standard deviation.  It should be noted that if the distribution is narrow and doesn't occupy a large portion of the mass spectrum, it may be more accurate to fit a gaussian to the distribution rather than the entire spectrum.  I may update this script at some later point to allow for that.
 
 If you have any questions, feel free to contact me, and I’ll be happy to help!!
