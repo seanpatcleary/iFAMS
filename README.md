@@ -9,7 +9,7 @@ iFAMS uses the QT (PyQt5 to be exact) to run its GUI.  Ergo, without this module
 
 iFAMS Manual Run Instructions
 
-This version of iFAMS contains no GUI, in case you would like to run the program from, say, a command prompt.  You will need python version 3 run this.
+This version of iFAMS contains no GUI, in case you would like to run the program from, say, a command line.  You will need python version 3 run this.
 
 These three scripts will do everything EXCEPT calculate the charge states and sub-unit mass.  Reason being, this would be rather awkward to do without a graphical interface.  If you've worked with the GUI, the program chooses points in the graph to calculate these, so without the graph, it might be kind of awkward to keep running the program to eventually get what you want. You can calculate the charge states manually much in the same way you do a mass spectrum though, remembering that each peak in the Fourier Spectrum is a charge state divided by the sub-unit mass (z/sub-unit mass).
 
