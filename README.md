@@ -1,10 +1,6 @@
 # iFAMS
 iFAMS, or interactive Fourier Analysis for Mass Spectrometry, is the Prell lab's home built deconvolution algorithm for heterogenous mass populations
 
-I am currently in the process of uploading the program to github.  Check back in the next upcoming weeks for updates! I expect to have a fully fuctioning GUI, as well as source code that can be run without the GUI if you'd prefer and familiar with python (I find it to be much faster this way)
-
-iFAMS uses the QT (PyQt5 to be exact) to run its GUI.  Ergo, without this module in your python site packages, you can not use the GUI.  This is simple to install from windows.  Open a command prompt (open start, search for command prompt if you don't know how to this) and type in, "pip install PyQt5". It should automatically install from there.  Elsewise, you will need the standards, such as numpy and scipy.  If an error pops up that says, "ModuleNotFoundError: No module named "module name", this means you're missing one such module, and should be able to install much in the same way I just described for PyQt5.  Any other issues, feel free to contact me, and we'll see if we can figure out what is wrong.
-
 # Manual Version
 
 iFAMS Manual Run Instructions
@@ -62,5 +58,9 @@ An example of this would be:
 "python      iFAMS_statistical_calculator -i testIFFT12.csv      -cs 12      -bm 49320     -sm 678" 
 
 this time, it will print the info in the command line. This script is a simple script that calcualtes the variance over all of the points, and takes the square root of that variance to produce the standard deviation.  It should be noted that if the distribution is narrow and doesn't occupy a large portion of the mass spectrum, it may be more accurate to fit a gaussian to the distribution rather than the entire spectrum.  I may update this script at some later point to allow for that.
+
+#iFAMS Gui
+
+iFAMS uses the QT (PyQt5 to be exact) to run its GUI.  Ergo, without this module in your python site packages, you can not use the GUI.  This is simple to install from windows.  Open a command prompt (open start, search for command prompt if you don't know how to this) and type in, "pip install PyQt5". It should automatically install from there.  Elsewise, you will need the standards, such as numpy and scipy.  If an error pops up that says, "ModuleNotFoundError: No module named "module name", this means you're missing one such module, and should be able to install much in the same way I just described for PyQt5.  Any other issues, feel free to contact me, and we'll see if we can figure out what is wrong.
 
 If you have any questions, feel free to contact me, and I’ll be happy to help!!
