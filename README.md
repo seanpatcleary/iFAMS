@@ -1,6 +1,10 @@
 # iFAMS
 iFAMS, or interactive Fourier Analysis for Mass Spectrometry, is the Prell lab's home built deconvolution algorithm for heterogenous mass populations
 
+If you use this program for an article or presentation, please cite the following article:
+
+Cleary, Sean P.; Thompson, Avery M.; Prell, James S. "Fourier Analysis Method for Analyzing Highly Congested Mass Spectra of Ion Populations with Repeated Subunits" Analytical Chemistry, 2016, 88, 6205-6213, doi: 10.1021/acs.analchem.6b01088.
+
 # Manual Version
 
 iFAMS Manual Run Instructions
@@ -59,8 +63,12 @@ An example of this would be:
 
 this time, it will print the info in the command line. This script is a simple script that calcualtes the variance over all of the points, and takes the square root of that variance to produce the standard deviation.  It should be noted that if the distribution is narrow and doesn't occupy a large portion of the mass spectrum, it may be more accurate to fit a gaussian to the distribution rather than the entire spectrum.  I may update this script at some later point to allow for that.
 
-#iFAMS Gui
-
-iFAMS uses the QT (PyQt5 to be exact) to run its GUI.  Ergo, without this module in your python site packages, you can not use the GUI.  This is simple to install from windows.  Open a command prompt (open start, search for command prompt if you don't know how to this) and type in, "pip install PyQt5". It should automatically install from there.  Elsewise, you will need the standards, such as numpy and scipy.  If an error pops up that says, "ModuleNotFoundError: No module named "module name", this means you're missing one such module, and should be able to install much in the same way I just described for PyQt5.  Any other issues, feel free to contact me, and we'll see if we can figure out what is wrong.
-
 If you have any questions, feel free to contact me, and I’ll be happy to help!!
+
+# iFAMS GUI
+
+iFAMS uses the QT (PyQt5 to be exact) to run its GUI.  Ergo, without this module in your python site packages, you can not use the GUI.  This is simple to install from windows.  Open a command prompt (open start, search for command prompt if you don't know how to this) and type in, "pip install PyQt5". It should automatically install from there.  Elsewise, you will need the standards, such as numpy and scipy.  If an error pops up that says, "ModuleNotFoundError: No module named "module name", this means you're missing one such module, and should be able to install much in the same way I just described for PyQt5.
+
+The GUI also uses a module called "pyqtGraph" for plotting data.  I've included this module in the actual zip folder, because for some reason, this seems to work better.  So for now, keep this in the iFAMS folder.
+
+To open the GUI, simply click on the python file called "iFAMS_V5.py.  It should open from there, but if you just can't get it to run, or you have any other issues, feel free to contact me, and we'll see if we can figure out what is wrong. 
