@@ -6,17 +6,24 @@ Created on Mon Oct  2 16:52:32 2017
 """
 import numpy as np
 import sys
-file_name = sys.argv[1]
+import argparse
+
+########## system arguments ###############
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--input", required=True, help="name of the file")
+ap.add_argument("-sm", "--subunitmass", required=True, help="the subunit mass")
+ap.add_argument("-cs", "--charge_state", required=True, help="the charge state")
+ap.add_argument("-bm", "--basemass", default = "0", help="The base mass")
+args = vars(ap.parse_args())
+########## system arguments ###############
+file_name = args["input"]
 f = open(file_name,'r')
 x,y=np.loadtxt (f,
        unpack = True,
        delimiter = ',')
-
-########## system arguments ###############
-inputcharge = float (sys.argv[2])
-inputbasemass = float (sys.argv[3])
-inputsubmass = float (sys.argv[4])
-########## system arguments ###############
+inputcharge = float(args["charge_state"])
+inputsubmass = float(args["subunitmass"])
+inputbasemass = float(args["basemass"])
 
 avgmz=0
 varmz=0
