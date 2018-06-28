@@ -59,9 +59,19 @@ This would be the command to Fourier Transform that test file included on my git
 
 An example of this would be:
 
-"python      iFAMS_statistical_calculator -i testIFFT12.csv      -cs 12      -bm 49320     -sm 678" 
+"python      iFAMS_statistical_calculator.py -i testIFFT12.csv      -cs 12      -bm 49320     -sm 678" 
 
 this time, it will print the info in the command line. This script is a simple script that calcualtes the variance over all of the points, and takes the square root of that variance to produce the standard deviation.  It should be noted that if the distribution is narrow and doesn't occupy a large portion of the mass spectrum, it may be more accurate to fit a gaussian to the distribution rather than the entire spectrum.  I may update this script at some later point to allow for that.
+
+4. For the zero-charge spectrum script, you will need 2 arguments.  You will also need the "IFFT" files from the inverse fourier transform script in the same folder.
+
+-i (input) This is required, and it is the name of the original file that you fourier transformed.  It will look for the for the IFFT files based on the name of the file.
+
+-cs (charge states) This is required, and it is the charge states that you want to contribute to the the zero-charge spectrum.  The input format is brackets with the charge states seperated by commas.  So for example, with the "test" file, the command would be
+
+"python iFAMS_zerocharge.py -i test.txt -cs [12,13,14,15]"
+
+it will plot your spectrum using Matplotlib
 
 If you have any questions, feel free to contact me, and I’ll be happy to help!!
 
