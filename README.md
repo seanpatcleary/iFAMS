@@ -69,7 +69,7 @@ this time, it will print the info in the command line. This script is a simple s
 
 -cs (charge states) This is required, and it is the charge states that you want to contribute to the the zero-charge spectrum.  The input format is brackets with the charge states seperated by commas.  So for example, with the "test" file, the command would be
 
--f (optional, flip the data) I've included this incase x and y are in oppisite columns.  Just type -f yes if this is the case.  default is no
+-f (optional, flip the data) I've included this incase x and y are in opposite columns.  Just type -f yes if this is the case.  default is no
 
 "python iFAMS_zerocharge.py -i test.txt -cs [12,13,14,15]"
 
