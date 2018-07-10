@@ -10,6 +10,7 @@ from scipy import interpolate as interpolate
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", required=True, help="name of the file")
 ap.add_argument("-cs", "--charge_states", required=True, help="the charge states")
+ap.add_argument("-f", "--flipped", default = "no", help="x and y flipped??")
 
 
 args = vars(ap.parse_args())
@@ -28,12 +29,42 @@ for i in range (0,len(chargestatesr)):
     iftstring = "IFFT"
     ifftfilename = namebase + iftstring + str(chargestateints[i]) + ".csv"
     f = open(ifftfilename, 'r')
-    x, y = np.loadtxt(f,
-                      unpack=True,
-                      delimiter=',')
+    if args["flipped"] == "yes":
+        y,x = np.loadtxt(f,
+                          unpack=True,
+                          delimiter=',')
+    else:
+        x,y = np.loadtxt(f,
+                          unpack=True,
+                          delimiter=',')
     xfull.append(x)
     yfull.append(y)
 ######### opens each ifft file, and makes one list of lists composed of all of the files ###################
+
+
+######### makes files the same size, although this should be the case if you're using the files from iFAMS##
+MaxLenX = []
+for i in range (0,len(xfull)):
+    MaxLenXtemp = len(xfull[i])
+    MaxLenX.append(MaxLenXtemp)
+
+MaxLenXFin = max(MaxLenX)
+
+for i in range (0,len(xfull)):
+
+    if len(xfull[i]) != MaxLenXFin:
+        space = (max(xfull[i])-min(xfull[i]))/len(xfull[i])
+        extra = float(MaxLenXFin-len(xfull[i]))
+        print (space*extra)
+        add = (max(xfull[i])+(space*extra)+space)
+        new = np.linspace(max(xfull[i])+space,(max(xfull[i])+(space*extra)),extra)
+        xfull[i] = np.append(xfull[i],new)
+        newY = np.zeros(int(extra))
+        yfull[i]= np.append(yfull[i],newY)
+    else:
+        continue
+######### makes files the same size, although this should be the case if you're using the files from iFAMS##
+
 
 ######### multiplies each x component by its charge state #############################
 for i in range (0,len(xfull)):
