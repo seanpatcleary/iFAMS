@@ -5,6 +5,8 @@ If you use this program for an article or presentation, please cite the followin
 
 Cleary, Sean P.; Thompson, Avery M.; Prell, James S. "Fourier Analysis Method for Analyzing Highly Congested Mass Spectra of Ion Populations with Repeated Subunits" Analytical Chemistry, 2016, 88, 6205-6213, doi: 10.1021/acs.analchem.6b01088.
 
+Cleary, Sean P.,Li, Huilin, Bagal, Dhanashri Loo, Joseph A., Campuzano, Iain D. G., Prell, James S. "Extracting Charge and Mass Information from Highly Congested Mass Spectra Using Fourier-Domain Harmonics" Journal of the American Society of Mass Spectrometry, 2018, doi: 10.1007/s13361-018-2018-7.
+
 # Manual Version
 
 iFAMS Manual Run Instructions
