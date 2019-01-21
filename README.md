@@ -83,4 +83,4 @@ If you have any questions, feel free to contact me, and I’ll be happy to help!
 
 The newest version of the GUI can be found here! 
 https://github.com/seanpatcleary/iFAMS/releases
-This newest version includes the ability to Gabor transform spectra (read about it here! https://doi.org/10.1002/cphc.201900022) I am currently working up documentation on how to use all of the features, look for that next week.
+This newest version includes the ability to Gabor transform spectra (read about it here! https://doi.org/10.1002/cphc.201900022) .
